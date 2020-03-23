@@ -15,7 +15,7 @@ import (
 
 	"github.com/filecoin-project/go-address"
 
-	"github.com/filecoin-project/lotus/build"
+	"github.com/textileio/lotus-client/build"
 )
 
 type Ticket struct {

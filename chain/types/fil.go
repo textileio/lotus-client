@@ -5,7 +5,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/filecoin-project/lotus/build"
+	"github.com/textileio/lotus-client/build"
 )
 
 type FIL BigInt
