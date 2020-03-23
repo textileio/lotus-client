@@ -65,8 +65,7 @@ func (s *RPCServer) handleWS(ctx context.Context, w http.ResponseWriter, r *http
 func (s *RPCServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	h := strings.ToLower(r.Header.Get("Connection"))
-	if strings.Contains(h, "upgrade") {
+	if strings.Contains(r.Header.Get("Connection"), "Upgrade") {
 		s.handleWS(ctx, w, r)
 		return
 	}

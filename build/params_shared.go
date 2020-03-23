@@ -6,20 +6,16 @@ import (
 
 // Core network constants
 
+const NetworkName = "interop"
+const BlocksTopic = "/fil/blocks/" + NetworkName
+const MessagesTopic = "/fil/msgs/" + NetworkName
+const DhtProtocolName = "/fil/kad/" + NetworkName
+
 // /////
 // Storage
 
 const UnixfsChunkSize uint64 = 1 << 20
 const UnixfsLinksPerLevel = 1024
-
-func SupportedSectorSize(ssize uint64) bool {
-	for _, ss := range SectorSizes {
-		if ssize == ss {
-			return true
-		}
-	}
-	return false
-}
 
 const SectorChallengeRatioDiv = 25
 
@@ -53,6 +49,9 @@ const WRatioDen = 2
 // Proofs
 
 // Epochs
+const FallbackPoStConfidence = 6
+
+// Epochs
 const SealRandomnessLookback = Finality
 
 // Epochs
@@ -65,11 +64,7 @@ const MaxSealLookback = SealRandomnessLookbackLimit + 2000
 // Mining
 
 // Epochs
-const EcRandomnessLookback = 300
-
-const PowerCollateralProportion = 5
-const PerCapitaCollateralProportion = 1
-const CollateralPrecision = 1000
+const EcRandomnessLookback = 1
 
 // /////
 // Devnet settings
@@ -77,23 +72,15 @@ const CollateralPrecision = 1000
 const TotalFilecoin = 2_000_000_000
 const MiningRewardTotal = 1_400_000_000
 
-const InitialRewardStr = "153856861913558700202"
-
-var InitialReward *big.Int
-
 const FilecoinPrecision = 1_000_000_000_000_000_000
+
+var InitialRewardBalance *big.Int
 
 // TODO: Move other important consts here
 
 func init() {
-	InitialReward = new(big.Int)
-
-	var ok bool
-	InitialReward, ok = InitialReward.
-		SetString(InitialRewardStr, 10)
-	if !ok {
-		panic("could not parse InitialRewardStr")
-	}
+	InitialRewardBalance = big.NewInt(MiningRewardTotal)
+	InitialRewardBalance = InitialRewardBalance.Mul(InitialRewardBalance, big.NewInt(FilecoinPrecision))
 }
 
 // Sync
@@ -107,4 +94,3 @@ const BlsSignatureCacheSize = 40000
 // Limits
 
 const BlockMessageLimit = 512
-const MinerMaxSectors = 1 << 48

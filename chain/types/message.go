@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/filecoin-project/specs-actors/actors/abi"
 	block "github.com/ipfs/go-block-format"
 	"github.com/ipfs/go-cid"
 	"github.com/multiformats/go-multihash"
@@ -20,10 +21,26 @@ type Message struct {
 	Value BigInt
 
 	GasPrice BigInt
-	GasLimit BigInt
+	GasLimit int64
 
-	Method uint64
+	Method abi.MethodNum
 	Params []byte
+}
+
+func (t *Message) BlockMiner() address.Address {
+	panic("implement me")
+}
+
+func (t *Message) Caller() address.Address {
+	return t.From
+}
+
+func (t *Message) Receiver() address.Address {
+	return t.To
+}
+
+func (t *Message) ValueReceived() abi.TokenAmount {
+	return t.Value
 }
 
 func DecodeMessage(b []byte) (*Message, error) {
@@ -70,7 +87,7 @@ func (m *Message) Cid() cid.Cid {
 func (m *Message) RequiredFunds() BigInt {
 	return BigAdd(
 		m.Value,
-		BigMul(m.GasPrice, m.GasLimit),
+		BigMul(m.GasPrice, NewInt(uint64(m.GasLimit))),
 	)
 }
 

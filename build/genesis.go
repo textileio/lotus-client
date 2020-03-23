@@ -2,11 +2,8 @@ package build
 
 import (
 	rice "github.com/GeertJohan/go.rice"
-	logging "github.com/ipfs/go-log/v2"
+	"github.com/prometheus/common/log"
 )
-
-// moved from now-defunct build/paramfetch.go
-var log = logging.Logger("build")
 
 func MaybeGenesis() []byte {
 	builtinGen, err := rice.FindBox("genesis")

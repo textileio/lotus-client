@@ -44,6 +44,7 @@ type Version struct {
 	//
 	// See APIVersion in build/version.go
 	APIVersion build.Version
+
 	// TODO: git commit / os / genesis cid?
 
 	// Seconds
