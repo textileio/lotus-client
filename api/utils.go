@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/filecoin-project/go-address"
-	"github.com/textileio/lotus-client/chain/types"
+	"github.com/filecoin-project/lotus/chain/types"
 )
 
 type SignFunc = func(context.Context, []byte) (*types.Signature, error)

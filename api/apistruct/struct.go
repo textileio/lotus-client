@@ -8,10 +8,10 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 
 	"github.com/filecoin-project/go-address"
+	"github.com/filecoin-project/lotus/chain/types"
 	"github.com/textileio/lotus-client/api"
 	"github.com/textileio/lotus-client/chain/actors"
 	"github.com/textileio/lotus-client/chain/store"
-	"github.com/textileio/lotus-client/chain/types"
 )
 
 // All permissions are listed in permissioned.go
