@@ -5,7 +5,7 @@ go 1.14
 require (
 	github.com/filecoin-project/go-address v0.0.2-0.20200218010043-eb9bb40ed5be
 	github.com/filecoin-project/go-fil-markets v0.0.0-20200318012938-6403a5bda668
-	github.com/filecoin-project/lotus v0.2.11-0.20200325003148-0f16ccc893d6
+	github.com/filecoin-project/lotus v0.2.11-0.20200325000223-ca3d2bf46f69
 	github.com/filecoin-project/specs-actors v0.0.0-20200321055844-54fa2e8da1c2
 	github.com/ipfs/go-cid v0.0.5
 	github.com/ipfs/go-filestore v0.0.2
@@ -14,4 +14,4 @@ require (
 	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
 )
 
-// lotus@0f16ccc
+// lotus@ca3d2
