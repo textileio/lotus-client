@@ -6,9 +6,9 @@ import (
 	"io"
 	"math/big"
 
+	"github.com/filecoin-project/lotus/build"
 	cbor "github.com/ipfs/go-ipld-cbor"
 	"github.com/polydawn/refmt/obj/atlas"
-	"github.com/textileio/lotus-client/build"
 
 	cbg "github.com/whyrusleeping/cbor-gen"
 	"golang.org/x/xerrors"
