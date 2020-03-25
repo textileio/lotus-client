@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/filecoin-project/go-address"
+	"github.com/filecoin-project/go-fil-markets/storagemarket"
 	"github.com/filecoin-project/specs-actors/actors/abi"
 	"github.com/filecoin-project/specs-actors/actors/abi/big"
 	"github.com/filecoin-project/specs-actors/actors/builtin/market"
@@ -15,11 +16,10 @@ import (
 	"github.com/ipfs/go-cid"
 	"github.com/ipfs/go-filestore"
 	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/lotus-client/storagemarket"
 	xerrors "golang.org/x/xerrors"
 
+	"github.com/filecoin-project/lotus/chain/types"
 	"github.com/textileio/lotus-client/chain/store"
-	"github.com/textileio/lotus-client/chain/types"
 )
 
 // FullNode API is a low-level interface to the Filecoin network full node
