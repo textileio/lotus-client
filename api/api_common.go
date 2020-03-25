@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/filecoin-project/lotus/build"
 	"github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/lotus-client/build"
 )
 
 type Permission = string

@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/textileio/lotus-client/chain/types"
+	"github.com/filecoin-project/lotus/chain/types"
 )
 
 const (
