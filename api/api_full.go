@@ -16,7 +16,6 @@ import (
 	"github.com/ipfs/go-cid"
 	"github.com/ipfs/go-filestore"
 	"github.com/libp2p/go-libp2p-core/peer"
-	xerrors "golang.org/x/xerrors"
 
 	"github.com/filecoin-project/lotus/chain/types"
 	"github.com/textileio/lotus-client/chain/store"
@@ -122,7 +121,7 @@ type FullNode interface {
 	StateMinerSectorSize(context.Context, address.Address, types.TipSetKey) (abi.SectorSize, error)
 	StateMinerFaults(context.Context, address.Address, types.TipSetKey) ([]abi.SectorNumber, error)
 	StatePledgeCollateral(context.Context, types.TipSetKey) (types.BigInt, error)
-	StateWaitMsg(context.Context, cid.Cid) (*MsgWait, error)
+	StateWaitMsg(context.Context, cid.Cid) (*MsgLookup, error)
 	StateListMiners(context.Context, types.TipSetKey) ([]address.Address, error)
 	StateListActors(context.Context, types.TipSetKey) ([]address.Address, error)
 	StateMarketBalance(context.Context, address.Address, types.TipSetKey) (MarketBalance, error)
@@ -174,9 +173,10 @@ type Import struct {
 type DealInfo struct {
 	ProposalCid cid.Cid
 	State       storagemarket.StorageDealStatus
+	Message     string // more information about deal state, particularly errors
 	Provider    address.Address
 
-	PieceRef []byte // cid bytes
+	PieceCID cid.Cid
 	Size     uint64
 
 	PricePerEpoch types.BigInt
@@ -185,7 +185,7 @@ type DealInfo struct {
 	DealID abi.DealID
 }
 
-type MsgWait struct {
+type MsgLookup struct {
 	Receipt types.MessageReceipt
 	TipSet  *types.TipSet
 }
@@ -355,19 +355,4 @@ const (
 type MpoolUpdate struct {
 	Type    MpoolChange
 	Message *types.SignedMessage
-}
-
-func ProofTypeFromSectorSize(ssize abi.SectorSize) (abi.RegisteredProof, abi.RegisteredProof, error) {
-	switch ssize {
-	case 2 << 10:
-		return abi.RegisteredProof_StackedDRG2KiBPoSt, abi.RegisteredProof_StackedDRG2KiBSeal, nil
-	case 8 << 20:
-		return abi.RegisteredProof_StackedDRG8MiBPoSt, abi.RegisteredProof_StackedDRG8MiBSeal, nil
-	case 512 << 20:
-		return abi.RegisteredProof_StackedDRG512MiBPoSt, abi.RegisteredProof_StackedDRG512MiBSeal, nil
-	case 32 << 30:
-		return abi.RegisteredProof_StackedDRG32GiBPoSt, abi.RegisteredProof_StackedDRG32GiBSeal, nil
-	default:
-		return 0, 0, xerrors.Errorf("unsupported sector size for miner: %v", ssize)
-	}
 }
